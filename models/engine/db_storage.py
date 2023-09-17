@@ -12,6 +12,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 
+
 class DBStorage:
     __engine = None
     __session = None
@@ -37,7 +38,7 @@ class DBStorage:
             dict: the queried class
         """
         if cls is None:
-            classes = [City, User, Place, Review]
+            classes = [City, User, Place, Review, Amenity]
             objs = self.__session.query(State).all()
             for cls in classes:
                 objs.extend(self.__session.query(cls).all())
