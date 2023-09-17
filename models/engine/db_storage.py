@@ -37,8 +37,10 @@ class DBStorage:
             dict: the queried class
         """
         if cls is None:
+            classes = [City, User]
             objs = self.__session.query(State).all()
-            objs.extend(self.__session.query(City).all())
+            for cls in classes:
+                objs.extend(self.__session.query(cls).all())
         else:
             if type(cls) == str:
                 cls = eval(cls)
