@@ -7,7 +7,7 @@ from models.amenity import Amenity
 from sqlalchemy import Column, String, ForeignKey, Float, Integer, Table
 from sqlalchemy.orm import relationship
 
-table = Table(
+association_table = Table(
     "place_amenity", Base.metadata,
     Column(
         "place_id",
@@ -39,7 +39,7 @@ class Place(BaseModel, Base):
     longitude = Column(Float)
     amenity_ids = []
     reviews = relationship("Review", backref="place", cascade="all, delete")
-    amenities = relationship("Amenity", secondary=table, viewonly=False)
+    amenities = relationship("Amenity", secondary="place_amenity", viewonly=False)
 
     if getenv("HBNB_TYPE_STORAGE") != "db":
         @property
