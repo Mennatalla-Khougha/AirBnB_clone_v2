@@ -1,7 +1,12 @@
 #!/usr/bin/python3
 """ """
 from tests.test_models.test_base_model import test_basemodel
+from models.engine.db_storage import DBStorage
+from models import storage
+from models.user import User
 from models.place import Place
+from models.city import City
+from models.state import State
 
 
 class test_Place(test_basemodel):
@@ -12,7 +17,14 @@ class test_Place(test_basemodel):
         super().__init__(*args, **kwargs)
         self.name = "Place"
         self.value = Place
-        self.x = Place(city_id="id", user_id="id", name="name")
+        user = User(email="email", password="password")
+        user.save()
+        state = State(name="name")
+        state.save()
+        city = City(name="name", state_id=state.id)
+        city.save()
+        self.x = Place(city_id=city.id, user_id=user.id, name="name")
+        self.x.save()
 
     def test_city_id(self):
         """ """
@@ -30,20 +42,20 @@ class test_Place(test_basemodel):
         """ """
         self.assertIsNone(self.x.description)
 
-    def test_number_rooms(self):
+    @unittest.skipIf(type(storage) != DBStorage, "DB")
+    def test_numbers(self):
+        """ """
+        self.assertTrue(self.x.number_rooms == 0)
+        self.assertTrue(self.x.number_bathrooms == 0)
+        self.assertTrue(self.x.max_guest == 0)
+        self.assertTrue(self.x.price_by_night == 0)
+
+    @unittest.skipIf(type(storage) == DBStorage, "DB")
+    def test_numbers(self):
         """ """
         self.assertIsNone(self.x.number_rooms)
-
-    def test_number_bathrooms(self):
-        """ """
         self.assertIsNone(self.x.number_bathrooms)
-
-    def test_max_guest(self):
-        """ """
         self.assertIsNone(self.x.max_guest)
-
-    def test_price_by_night(self):
-        """ """
         self.assertIsNone(self.x.price_by_night)
 
     def test_latitude(self):

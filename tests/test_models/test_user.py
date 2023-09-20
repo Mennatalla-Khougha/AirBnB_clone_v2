@@ -13,6 +13,7 @@ class test_User(test_basemodel):
         self.name = "User"
         self.value = User
         self.x = User(email="email", password="password")
+        self.x.save()
 
     def test_first_name(self):
         """ """
