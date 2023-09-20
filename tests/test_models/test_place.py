@@ -7,6 +7,7 @@ from models.user import User
 from models.place import Place
 from models.city import City
 from models.state import State
+import unittest
 
 
 class test_Place(test_basemodel):
