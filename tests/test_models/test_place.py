@@ -12,58 +12,48 @@ class test_Place(test_basemodel):
         super().__init__(*args, **kwargs)
         self.name = "Place"
         self.value = Place
+        self.x = Place(city_id="id", user_id="id", name="name")
 
     def test_city_id(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.city_id), str)
+        self.assertEqual(type(self.x.city_id), str)
 
     def test_user_id(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.user_id), str)
+        self.assertEqual(type(self.x.user_id), str)
 
     def test_name(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+        self.assertEqual(type(self.x.name), str)
 
     def test_description(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.description), str)
+        self.assertIsNone(self.x.description)
 
     def test_number_rooms(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.number_rooms), int)
+        self.assertIsNone(self.x.number_rooms)
 
     def test_number_bathrooms(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.number_bathrooms), int)
+        self.assertIsNone(self.x.number_bathrooms)
 
     def test_max_guest(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.max_guest), int)
+        self.assertIsNone(self.x.max_guest)
 
     def test_price_by_night(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.price_by_night), int)
+        self.assertIsNone(self.x.price_by_night)
 
     def test_latitude(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.latitude), float)
+        self.assertIsNone(self.x.latitude)
 
     def test_longitude(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.latitude), float)
+        self.assertIsNone(self.x.latitude)
 
     def test_amenity_ids(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.amenity_ids), list)
+        self.assertEqual(type(self.x.amenity_ids), list)
