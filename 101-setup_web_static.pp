@@ -2,42 +2,43 @@
 
 if ! which('nginx') {
   exec { 'update':
-    command     => '/usr/bin/apt-get update',
+    command  => 'apt-get update',
+    provider => shell,
   }
   -> package { 'nginx':
     ensure => installed,
   }
 }
 -> exec {'mkdir':
-command  => '/usr/bin/mkdir -p /data/web_static/shared',
+command  => 'mkdir -p /data/web_static/shared',
 provider => shell,
 }
 -> exec {'mkdir':
-command  => '/usr/bin/mkdir -p /data/web_static/releases/test',
+command  => 'mkdir -p /data/web_static/releases/test',
 provider => shell,
 }
 -> exec {'echo':
-command  => '/usr/bin/echo "Hello world" >  /data/web_static/releases/test/index.html',
+command  => 'echo "Hello world" >  /data/web_static/releases/test/index.html',
 provider => shell,
 }
 -> exec {'ln':
-command  => '/usr/bin/ln -sf /data/web_static/releases/test /data/web_static/current',
+command  => 'ln -sf /data/web_static/releases/test /data/web_static/current',
 provider => shell,
 }
 -> exec {'chown':
-command  => '/usr/bin/chown -R ubuntu:ubuntu /data/',
+command  => 'chown -R ubuntu:ubuntu /data/',
 provider => shell,
 }
 -> exec {'sed':
-command  => '/usr/bin/sed -i "/server_name _;/a \
-\
-    location /hbnb_static/ { \
-        alias /data/web_static/current/;\
-        index index.html;\
+command  => 'sudo sed -i "/server_name _;/a \
+\\
+    location /hbnb_static/ { \\
+        alias /data/web_static/current/;\\
+        index index.html;\\
     }" /etc/nginx/sites-available/default',
 provider => shell,
 }
 -> exec {'restart':
-command  => '/usr/bin/service nginx restart',
+command  => 'sudo service nginx restart',
 provider => shell,
 }
