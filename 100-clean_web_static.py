@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """deletes out-of-date archives"""
-from fabric.api import run, local, task
+from fabric.api import run, local, task, env
 
 env.hosts = ["100.25.111.125", "34.207.190.218"]
 env.user = "ubuntu"
