@@ -29,8 +29,7 @@ command  => 'chown -R ubuntu:ubuntu /data/',
 provider => shell,
 }
 -> exec {'sed':
-command  => 'sed -i "/server_name _;/a \
-\
+command  => 'sed -i "/server_name _;/a 
     location /hbnb_static/ { 
         alias /data/web_static/current/;
         index index.html;
