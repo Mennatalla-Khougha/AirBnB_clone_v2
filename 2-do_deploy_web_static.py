@@ -15,7 +15,7 @@ def do_deploy(archive_path):
 
     try:
         put(archive_path, "/tmp/")
-        archive = archive_path.split("/")[-1]
+        archive = archive_path.split("/")[1]
         file = archive.split(".")[0]
         release = "/data/web_static/releases/"
         folder = "/data/web_static/releases/{}".format(file)
