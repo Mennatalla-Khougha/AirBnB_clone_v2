@@ -1,35 +1,35 @@
 #sets up the web servers for the deployment of web_static.
 
-exec {'update':
-command  => 'apt-get update',
-provider => shell,
+if ! which('nginx') {
+  exec { 'update':
+    command     => '/usr/bin/apt-get update',
+  }
+  -> package { 'nginx':
+    ensure => installed,
+  }
 }
--> exec {'install':
-command  => 'apt-get install -y nginx',
+-> exec {'mkdir':
+command  => '/usr/bin/mkdir -p /data/web_static/shared',
 provider => shell,
 }
 -> exec {'mkdir':
-command  => 'mkdir -p /data/web_static/shared',
-provider => shell,
-}
--> exec {'mkdir':
-command  => 'mkdir -p /data/web_static/releases/test',
+command  => '/usr/bin/mkdir -p /data/web_static/releases/test',
 provider => shell,
 }
 -> exec {'echo':
-command  => 'echo "Hello world" >  /data/web_static/releases/test/index.html',
+command  => '/usr/bin/echo "Hello world" >  /data/web_static/releases/test/index.html',
 provider => shell,
 }
 -> exec {'ln':
-command  => 'ln -sf /data/web_static/releases/test /data/web_static/current',
+command  => '/usr/bin/ln -sf /data/web_static/releases/test /data/web_static/current',
 provider => shell,
 }
 -> exec {'chown':
-command  => 'chown -R ubuntu:ubuntu /data/',
+command  => '/usr/bin/chown -R ubuntu:ubuntu /data/',
 provider => shell,
 }
 -> exec {'sed':
-command  => 'sed -i "/server_name _;/a \
+command  => '/usr/bin/sed -i "/server_name _;/a \
 \
     location /hbnb_static/ { \
         alias /data/web_static/current/;\
@@ -38,6 +38,6 @@ command  => 'sed -i "/server_name _;/a \
 provider => shell,
 }
 -> exec {'restart':
-command  => 'service nginx restart',
+command  => '/usr/bin/service nginx restart',
 provider => shell,
 }
