@@ -37,6 +37,6 @@ command  => 'sed -i "s|server_name _;|server_name _;
 provider => shell,
 }
 -> exec {'restart':
-command  => 'service nginx restart',
+command  => 'sudo service nginx restart',
 provider => shell,
 }
