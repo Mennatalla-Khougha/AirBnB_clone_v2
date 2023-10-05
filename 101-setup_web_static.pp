@@ -17,7 +17,7 @@ command  => 'mkdir -p /data/web_static/releases/test',
 provider => shell,
 }
 -> exec {'echo':
-command  => 'echo "Hello world" > /data/web_static/releases/test/index.html',
+command  => 'echo "Hello world" >  /data/web_static/releases/test/index.html',
 provider => shell,
 }
 -> exec {'ln':
@@ -29,10 +29,11 @@ command  => 'chown -R ubuntu:ubuntu /data/',
 provider => shell,
 }
 -> exec {'sed':
-command  => 'sudo sed -i "s|server_name _;|server_name _; 
+command  => 'sed -i "s|server_name _;|server_name _; 
     location /hbnb_static/ { 
         alias /data/web_static/current/;
-    }" /etc/nginx/sites-available/default',
+        index index.html;
+    }|" /etc/nginx/sites-available/default',
 provider => shell,
 }
 -> exec {'restart':
