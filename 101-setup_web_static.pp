@@ -31,9 +31,9 @@ provider => shell,
 -> exec {'sed':
 command  => 'sed -i "/server_name _;/a \
 \
-    location /hbnb_static/ { \
-        alias /data/web_static/current/;\
-        index index.html;\
+    location /hbnb_static/ { 
+        alias /data/web_static/current/;
+        index index.html;
     }" /etc/nginx/sites-available/default',
 provider => shell,
 }
