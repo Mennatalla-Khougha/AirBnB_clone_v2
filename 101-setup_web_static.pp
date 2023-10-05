@@ -2,31 +2,31 @@
 
 exec {'update':
 command  => 'apt-get update',
-provider => 'shell',
+provider => shell,
 }
 -> exec {'install':
 command  => 'apt-get install -y nginx',
-provider => 'shell',
+provider => shell,
 }
 -> exec {'mkdir':
 command  => 'mkdir -p /data/web_static/shared',
-provider => 'shell',
+provider => shell,
 }
 -> exec {'mkdir':
 command  => 'mkdir -p /data/web_static/releases/test',
-provider => 'shell',
+provider => shell,
 }
 -> exec {'echo':
 command  => 'echo "Hello world" >  /data/web_static/releases/test/index.html',
-provider => 'shell',
+provider => shell,
 }
 -> exec {'ln':
 command  => 'ln -sf /data/web_static/releases/test /data/web_static/current',
-provider => 'shell',
+provider => shell,
 }
 -> exec {'chown':
 command  => 'chown -R ubuntu:ubuntu /data/',
-provider => 'shell',
+provider => shell,
 }
 -> exec {'sed':
 command  => 'sed -i "/server_name _;/a \
@@ -35,9 +35,9 @@ command  => 'sed -i "/server_name _;/a \
         alias /data/web_static/current/;\
         index index.html;\
     }" /etc/nginx/sites-available/default',
-provider => 'shell',
+provider => shell,
 }
 -> exec {'restart':
 command  => 'service nginx restart',
-provider => 'shell',
+provider => shell,
 }
