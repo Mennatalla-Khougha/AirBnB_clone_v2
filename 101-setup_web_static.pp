@@ -29,7 +29,10 @@ command  => 'chown -R ubuntu:ubuntu /data/',
 provider => shell,
 }
 -> exec {'sed':
-command => 'sudo sed -i "s|server_name _;|server_name _;\n\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}|" /etc/nginx/sites-enabled/default',
+command  => 'sudo sed -i "s|server_name _;|server_name _; 
+    location /hbnb_static/ { 
+        alias /data/web_static/current/;
+    }" /etc/nginx/sites-available/default',
 provider => shell,
 }
 -> exec {'restart':
