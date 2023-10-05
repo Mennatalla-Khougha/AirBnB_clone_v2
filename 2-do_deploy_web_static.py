@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 """script that distributes an archive to your web servers"""
 from os.path import exists
-from fabric.api import env, run, put
+from fabric.api import env, run, put, task
 
 env.hosts = ["100.25.111.125", "34.207.190.218"]
 env.user = "ubuntu"
 # archive_path = "versions/web_static_20231004205451.tgz"
 
 
+@task
 def do_deploy(archive_path):
     """distributes an archive to your web servers"""
     if not exists(archive_path):
@@ -28,5 +29,5 @@ def do_deploy(archive_path):
         run("ln -s {} /data/web_static/current".format(folder))
         print("New version deployed!")
         return True
-    except:
+    except Exception:
         return False
