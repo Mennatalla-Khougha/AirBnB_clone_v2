@@ -1,13 +1,12 @@
 #sets up the web servers for the deployment of web_static.
 
-if ! which('nginx') {
-  exec { 'update':
-    command  => 'apt-get update',
-    provider => shell,
-  }
-  -> package { 'nginx':
-    ensure => installed,
-  }
+exec { 'update':
+  command => 'apt-get update',
+  provider => shell,
+}
+-> exec { 'install':
+  command => 'apt-get -y install nginx',
+  provider => shell,
 }
 -> exec {'mkdir':
 command  => 'mkdir -p /data/web_static/shared',
@@ -30,10 +29,15 @@ command  => 'chown -R ubuntu:ubuntu /data/',
 provider => shell,
 }
 -> exec {'sed':
-command  => 'sudo sed -i "s|server_name _;|server_name _;\n\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}|" /etc/nginx/sites-enabled/default',
+command  => 'sed -i "/server_name _;/a \
+\
+    location /hbnb_static/ { \
+        alias /data/web_static/current/;\
+        index index.html;\
+    }" /etc/nginx/sites-available/default',
 provider => shell,
 }
 -> exec {'restart':
-command  => 'sudo service nginx restart',
+command  => 'service nginx restart',
 provider => shell,
 }
