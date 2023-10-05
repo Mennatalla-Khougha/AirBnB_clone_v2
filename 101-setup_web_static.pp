@@ -9,11 +9,7 @@ exec { 'update':
   provider => shell,
 }
 -> exec {'mkdir':
-command  => 'mkdir -p /data/web_static/shared',
-provider => shell,
-}
--> exec {'mkdir':
-command  => 'mkdir -p /data/web_static/releases/test',
+command  => 'mkdir -p /data/web_static/shared /data/web_static/releases/test'',
 provider => shell,
 }
 -> exec {'echo':
