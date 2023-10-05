@@ -9,7 +9,11 @@ exec { 'update':
   provider => shell,
 }
 -> exec {'mkdir':
-command  => 'mkdir -p /data/web_static/shared /data/web_static/releases/test',
+command  => 'mkdir -p /data/web_static/shared',
+provider => shell,
+}
+-> exec {'mkdir_test':
+command  => 'mkdir -p /data/web_static/releases/test',
 provider => shell,
 }
 -> exec {'echo':
@@ -25,7 +29,7 @@ command  => 'chown -R ubuntu:ubuntu /data/',
 provider => shell,
 }
 -> exec {'sed':
-command  => 'sed -i "/server_name _;/a 
+command  => 'sed -i "s|server_name _;|server_name _; 
     location /hbnb_static/ { 
         alias /data/web_static/current/;
         index index.html;
