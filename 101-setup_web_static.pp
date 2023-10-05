@@ -4,38 +4,31 @@ exec {'update':
 command  => 'apt-get update',
 provider => 'shell',
 }
-
-exec {'install':
+-> exec {'install':
 command  => 'apt-get install -y nginx',
 provider => 'shell',
 }
-
-exec {'mkdir':
+-> exec {'mkdir':
 command  => 'mkdir -p /data/web_static/shared',
 provider => 'shell',
 }
-
-exec {'mkdir':
+-> exec {'mkdir':
 command  => 'mkdir -p /data/web_static/releases/test',
 provider => 'shell',
 }
-
-exec {'echo':
+-> exec {'echo':
 command  => 'echo "Hello world" >  /data/web_static/releases/test/index.html',
 provider => 'shell',
 }
-
-exec {'ln':
+-> exec {'ln':
 command  => 'ln -sf /data/web_static/releases/test /data/web_static/current',
 provider => 'shell',
 }
-
-exec {'chown':
+-> exec {'chown':
 command  => 'chown -R ubuntu:ubuntu /data/',
 provider => 'shell',
 }
-
-exec {'sed':
+-> exec {'sed':
 command  => 'sed -i "/server_name _;/a \
 \
     location /hbnb_static/ { \
@@ -44,8 +37,7 @@ command  => 'sed -i "/server_name _;/a \
     }" /etc/nginx/sites-available/default',
 provider => 'shell',
 }
-
-exec {'restart':
+-> exec {'restart':
 command  => 'service nginx restart',
 provider => 'shell',
 }
