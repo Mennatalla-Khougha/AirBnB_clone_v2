@@ -9,10 +9,12 @@ def Hello():
     """ display “Hello HBNB"""
     return "Hello HBNB!"
 
+
 @app.route("/hbnb", strict_slashes=False)
 def hbnb():
     """ display “HBNB"""
     return "HBNB"
+
 
 @app.route("/c/<text>", strict_slashes=False)
 def C_is_fun(text):
@@ -20,12 +22,14 @@ def C_is_fun(text):
     txt = text.replace("_", " ")
     return f"C {txt}"
 
+
 @app.route("/python/<text>", strict_slashes=False)
 @app.route("/python/", strict_slashes=False)
 def Python_is_cool(text="is_cool"):
     """display “Python ”, followed by the value of the text"""
     txt = text.replace("_", " ")
     return f"Python {txt}"
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
