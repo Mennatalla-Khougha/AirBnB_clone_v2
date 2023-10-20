@@ -62,7 +62,7 @@ class FileStorage:
             obj (class): obj to be deleted. Defaults to None.
         """
         if obj in self.all().values():
-            del self.all()[f'{type(obj).__name__}.{obj.id}']     
+            del self.all()[f'{type(obj).__name__}.{obj.id}']
 
     def close(self):
         """method for deserializing JSON file"""

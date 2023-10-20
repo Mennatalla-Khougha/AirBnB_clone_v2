@@ -76,9 +76,7 @@ class DBStorage:
                                        expire_on_commit=False)
         start_session = scoped_session(session_factory)
         self.__session = start_session()
-    
+
     def close(self):
         """closes the working session"""
         self.__session.close()
-        
-    
