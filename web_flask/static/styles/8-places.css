@@ -4,6 +4,7 @@
 	flex-wrap: wrap;
 	margin: 45px auto;
 	text-align: center;
+	z-index: 1;
 }
 
 article {
@@ -33,8 +34,13 @@ article {
 	width: 100%;
 }
 
+.headline h2 {
+	text-align: center;
+	margin-right: 100px;
+}
+
 .price_by_night {
-	display: flex;
+	display: block;
 	justify-content: center;
 	align-self: flex-end;
 
